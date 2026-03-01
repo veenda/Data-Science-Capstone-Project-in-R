@@ -16,16 +16,16 @@ profanity_file <- "data/profanity_list.txt"
 # Check if the profanity list already exists before downloading
 if (!file.exists(profanity_file)) {
     message("Downloading profanity list...")
-    download.file(profanity_url, destfile = profanity_file, mode = "wb")
+    download.file(profanity_url, destfile = profanity_file)
 }
 
 # Load the profanity list
 profanity_list <- readLines(profanity_file, encoding = "UTF-8", skipNul = TRUE)
 
 # Load the tokenized data
-tokenized_twitter <- readRDS("data/cleaned/tokens_unigram_twitter.rds")
-tokenized_blogs <- readRDS("data/cleaned/tokens_unigram_blogs.rds")
-tokenized_news <- readRDS("data/cleaned/tokens_unigram_news.rds")
+tokenized_twitter <- readRDS("data/tokenized/tokens_unigram_twitter.rds")
+tokenized_blogs <- readRDS("data/tokenized/tokens_unigram_blogs.rds")
+tokenized_news <- readRDS("data/tokenized/tokens_unigram_news.rds")
 
 # Filter the tokenized twitter data to remove profanity
 filtered_twitter <- tokenized_twitter %>%
