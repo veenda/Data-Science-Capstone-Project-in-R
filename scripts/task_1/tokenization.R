@@ -1,5 +1,4 @@
-library("tidyverse")
-library("tidytext")
+library(tidyverse)
 
 output_dir <- "data/tokenized/"
 
@@ -15,20 +14,28 @@ cleaned_blogs <- readRDS("data/cleaned/cleaned_blogs.rds")
 cleaned_news <- readRDS("data/cleaned/cleaned_news.rds")
 
 tokens_unigram_twitter <- tibble(text = cleaned_twitter) %>%
-    unnest_tokens(word, text)
+  separate_longer_delim(text, delim = regex("\\s+")) %>%
+  rename(word = text) %>%
+  filter(word != "")
 
 saveRDS(tokens_unigram_twitter, file.path(output_dir, "tokens_unigram_twitter.rds"))
-print("Tokenization sample:", head(tokens_unigram_twitter, 10))
+cat("Tokenization sample:")
+print(head(tokens_unigram_twitter, 10))
 
 tokens_unigram_blogs <- tibble(text = cleaned_blogs) %>%
-    unnest_tokens(word, text)
+    separate_longer_delim(text, delim = regex("\\s+")) %>%
+    rename(word = text) %>%
+    filter(word != "")
 
 saveRDS(tokens_unigram_blogs, file.path(output_dir, "tokens_unigram_blogs.rds"))
-print("Tokenization sample:", head(tokens_unigram_blogs, 10))
+cat("Tokenization sample:")
+print(head(tokens_unigram_blogs, 10))
 
 tokens_unigram_news <- tibble(text = cleaned_news) %>%
-    unnest_tokens(word, text)
+    separate_longer_delim(text, delim = regex("\\s+")) %>%
+    rename(word = text) %>%
+    filter(word != "")
 
 saveRDS(tokens_unigram_news, file.path(output_dir, "tokens_unigram_news.rds"))
-print("Tokenization sample:")
+cat("Tokenization sample:")
 print(head(tokens_unigram_news, 10))
